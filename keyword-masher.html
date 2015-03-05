@@ -1,0 +1,94 @@
+<html>
+<head>
+	
+<!-- JavaScript Section -->
+<script type="text/javascript">
+
+function calcPhrases()
+{
+	// for(phrases separated by \n ...)
+	// separate into an array of substrings based on "\n"
+	var subPhrases = [];
+	var newPhrases = [];
+	var combos = [];
+	var phrases = document.getElementById("phrases").value.replace(/\r\n/g, "\n").split("\n");
+	for(i=0; i<phrases.length; i++) {
+		// break them down into substrings
+		subPhrases = phrases[i].split(" ");
+		for(j=0; j<subPhrases.length; j++){
+			newPhrases.push(subPhrases[j]);
+			// newPhrases now has all sub strings separated
+		}
+	}
+	var numOfSubs = newPhrases.length;
+	for(k=0; k<numOfSubs; k++){
+		for(n=0; n<numOfSubs; n++){
+			combos.push(newPhrases[k] + " " +newPhrases[n]);
+			combos.push(newPhrases[n]+ " " +newPhrases[k]);
+		}
+	}
+	writeResult(combos);
+}
+
+function writeResult(phraseArray)
+{
+	var resultTextArea = document.getElementById("resultPhrases");
+	resultTextArea.value = phraseArray.join("\n");
+}
+
+</script>
+
+<!-- CSS Section -->
+
+<style type="text/css">
+
+.leftColumn
+{
+	float:left;
+	margin:20px;
+	width:400px;
+	clear:left;
+}
+
+.resultsSection
+{
+	clear:both;
+	margin:20px;
+	width:840px;
+}
+
+#resultsButton
+{
+	clear:both;
+	float:left;
+	margin-top:10px;
+}
+
+#combinedH2
+{
+	clear:both;
+	float:left;
+}
+
+
+</style>
+</head>
+
+<!-- HTML5 Section -->
+
+<body>
+	<div id="info">
+		<p>This is a tool that takes a list of phrases, breaks them down into single words and spits out every possible combination of those words.</p>
+	
+	<div class="leftColumn">	
+		<h2>List of phrases:</h2>
+		<textarea id="phrases" cols="50" rows="20" placeholder="Phrases go here"></textarea>
+		<button type="button" onclick="calcPhrases()" id="resultsButton">Mash'em Up'</button>
+	</div>
+	</br>
+	<div class="leftColumn">
+	<h2 id="combinedH2">Tons of new phrases</h2>
+		<textarea id="resultPhrases" cols="50" rows="20" placeholder="New combinations appear here"></textarea>
+	</div>
+</body>
+</html>

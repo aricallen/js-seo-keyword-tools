@@ -1,0 +1,120 @@
+<html>
+<head>
+	
+<!-- JavaScript Section -->
+<script type="text/javascript">
+
+function calcPhrases()
+{
+	// for(phrases separated by \n ...)
+	// separate into an array of substrings based on "\n"
+	var x = 0;
+	var resultCode = [];
+	var oldLinks = document.getElementById("oldLinks").value.replace(/\r\n/g, "\n").split("\n");
+	var newLinks = document.getElementById("newLinks").value.replace(/\r\n/g, "\n").split("\n");
+	// do some for loops to combine them all 
+	//resultCode.push("\/\/301 Redirects");
+	for(i=0; i<oldLinks.length; i++){
+		resultCode.push("RewriteCond %{HTTP_USER_AGENT} (googlebot-mobile|adsbot-google-mobile|android|iphone|blackberry|ipad|opera|palm|nokia|symbian|netfront) [NC]");
+		resultCode.push("RewriteRule ^"+oldLinks[i]+" "+newLinks[i]);
+		resultCode.push("\n");
+	}
+	writeResult(resultCode);
+}
+
+function writeResult(phraseArray)
+{
+	var resultTextArea = document.getElementById("resultPhrases");
+	//var tempLength = phraseArray.length;
+	resultTextArea.value = phraseArray.join("\n");
+}
+
+</script>
+
+<!-- CSS Section -->
+
+<style type="text/css">
+
+.leftColumn
+{
+	float:left;
+	margin:20px;
+	width:400px;
+	clear:left;
+}
+
+.centerColumn
+{
+	float:left;
+	margin:20px;
+	width:400px;
+}
+
+.rightColumn
+{
+	float:left;
+	margin:20px;
+	width:400px;
+	clear:right;
+}
+
+.resultsSection
+{
+	clear:both;
+	margin:20px;
+	width:840px;
+}
+
+#corePhrases
+{
+	width:400px;
+}
+
+#descriptorPhrases
+{
+	width:400px;
+}
+
+#resultsButton
+{
+	clear:both;
+	float:left;
+	margin-top:10px;
+}
+
+#combinedH2
+{
+	clear:both;
+	float:left;
+}
+
+#resultPhrases
+{
+	width:400px;
+}
+
+</style>
+</head>
+
+<!-- HTML5 Section -->
+
+<body>
+	<div id="info">
+		<p>Place the original links in left column. Place the corresponding links in which they will be redirected to.These should be matched 1 to 1s</p>	
+	<div class="centerColumn">	
+		<h2>Old</h2>
+		<textarea id="oldLinks" cols="50" rows="20" placeholder="Enter old links (one per line)"></textarea>
+		<button type="button" onclick="calcPhrases()" id="resultsButton">Combine Phrases</button>
+	</div>
+
+	<div class="rightColumn">
+		<h2>New</h2>
+		<textarea id="newLinks" cols="50" rows="20" placeholder="Enter new links (one per line)"></textarea>
+	</div>
+	</br>
+	<div class="leftColumn">
+	<h2 id="combinedH2">htaccess code</h2>
+		<textarea id="resultPhrases" cols="50" rows="20" placeholder="New combined keyphrases will appear here"></textarea>
+	</div>
+</body>
+</html>

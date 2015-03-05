@@ -1,0 +1,93 @@
+<html>
+<head>
+	
+<!-- JavaScript Section -->
+<script type="text/javascript">
+
+String.prototype.capitalize = function(){
+   return this.replace( /(^|\s)([a-z])/g , function(m,p1,p2){ return p1+p2.toUpperCase(); } );
+};
+
+function urlToTitle()
+{
+	// for(phrases separated by \n ...)
+	// separate into an array of substrings based on "\n"
+	var urls = document.getElementById("urls").value.replace(/\r\n/g, "\n").split("\n");
+	var newPhrases = [];
+	// do some for loops to combine them all 
+	var tempStr = "";	//holds single url
+	var lastSlash;	//find where last slash is
+	var workURL = "";
+	var title = "";
+	var workTitle = "";
+	for(i=0;i<urls.length;i++){
+		tempStr = urls[i];
+		lastSlash = tempStr.lastIndexOf("/");
+		workURL = tempStr.substring(lastSlash+1, tempStr.length);
+		title = workURL.replace(/[\W\_\-]/gi, " ");
+		workTitle = title.capitalize();
+		newPhrases.push(workTitle);
+	}
+	writeResult(newPhrases);
+}
+
+function writeResult(phraseArray)
+{
+	var resultTextArea = document.getElementById("resultPhrases");
+	resultTextArea.value = phraseArray.join("\n");
+}
+
+</script>
+
+<!-- CSS Section -->
+
+<style type="text/css">
+
+.leftColumn
+{
+	float:left;
+	margin:20px;
+	width:400px;
+	clear:left;
+}
+
+#resultsButton
+{
+	clear:both;
+	float:left;
+	margin-top:10px;
+}
+
+#combinedH2
+{
+	clear:both;
+	float:left;
+}
+
+#resultPhrases
+{
+	width:400px;
+}
+
+</style>
+</head>
+
+<!-- HTML5 Section -->
+
+<body>
+	<div id="info">
+		<p>Turns a list of urls into a list of titles by replacing special characters with spaces and capitalizing each word.</p>
+	
+	<div class="leftColumn">	
+		<h2>List of URLs</h2>
+		<textarea id="urls" cols="50" rows="20" placeholder="List of URLs to turn into title tags."></textarea>
+	</div>
+		<button type="button" onclick="urlToTitle()" style="margin:20px;" id="resultsButton">Titelize Me</button>
+	</div>
+	</br>
+	<div class="leftColumn">
+	<h2 id="combinedH2">Nice Titles</h2>
+		<textarea id="resultPhrases" cols="50" rows="20" placeholder="Nice Titles will appear here"></textarea>
+	</div>
+</body>
+</html>

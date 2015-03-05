@@ -1,0 +1,147 @@
+<html>
+<head>
+	
+<!-- JavaScript Section -->
+<script type="text/javascript">
+
+function calcPhrases()
+{
+	// for(phrases separated by \n ...)
+	// separate into an array of substrings based on "\n"
+	var x = 0;
+	var newPhrases = [];
+	var resultPhrases = [];
+	var core = document.getElementById("corePhrases").value.replace(/\r\n/g, "\n").split("\n");
+	var descriptors = document.getElementById("descriptorPhrases").value.replace(/\r\n/g, "\n").split("\n");
+	var preDescs = document.getElementById("prePhrases").value.replace(/\r\n/g, "\n").split("\n");
+	// do some for loops to combine them all 
+	if(descriptors[0] != ""){	// descriptors exist
+		for(i=0; i<core.length; i++) {
+				//newPhrases.push(core[i]);
+			for(j=0; j<descriptors.length; j++) {
+				var phrase = core[i]+" "+descriptors[j];
+				newPhrases.push(phrase);
+				x++;
+			}
+		}
+	} else{
+		x = core.length;
+		newPhrases = core;
+		var skipDescs = true;
+	} 
+	
+	if(preDescs[0] != ""){ // preDescs exist
+		for(k=0; k<preDescs.length; k++){
+			for(n=0; n < x; n++){
+				var phrase2 = preDescs[k]+newPhrases[n];
+				resultPhrases.push(phrase2);
+			}
+		}
+	} else {
+		resultPhrases = newPhrases;
+	}
+	writeResult(resultPhrases);
+}
+
+function writeResult(phraseArray)
+{
+	var resultTextArea = document.getElementById("resultPhrases");
+	//var tempLength = phraseArray.length;
+	resultTextArea.value = phraseArray.join("\n");
+}
+
+</script>
+
+<!-- CSS Section -->
+
+<style type="text/css">
+
+.leftColumn
+{
+	float:left;
+	margin:20px;
+	width:400px;
+	clear:left;
+}
+
+.centerColumn
+{
+	float:left;
+	margin:20px;
+	width:400px;
+}
+
+.rightColumn
+{
+	float:left;
+	margin:20px;
+	width:400px;
+	clear:right;
+}
+
+.resultsSection
+{
+	clear:both;
+	margin:20px;
+	width:840px;
+}
+
+#corePhrases
+{
+	width:400px;
+}
+
+#descriptorPhrases
+{
+	width:400px;
+}
+
+#resultsButton
+{
+	clear:both;
+	float:left;
+	margin-top:10px;
+}
+
+#combinedH2
+{
+	clear:both;
+	float:left;
+}
+
+#resultPhrases
+{
+	width:400px;
+}
+
+</style>
+</head>
+
+<!-- HTML5 Section -->
+
+<body>
+	<div id="info">
+		<p>Keyphrase Combiner is a web app created for automating the tedious action of combining keywords with a newly found descriptor keyword.  A simple example:</p>
+		<p>Let's say we are trying to compile a list of keywords for a client specializing in the medical realm of "ostomy", "ileostomy", and "colostomy". While we're doing the initial research we find that all three of these words could be inside of a new keyphrase with descriptors like "supplies", "tools", "clothing", "equipment", "surgery".  This can quickly become a long list of new words to type.</p>
+		<p>With Keyphrase Combiner, you can do you research smarter/quicker, by separating all "Core Phrases" and all "Descriptor Phrases" in your spreadsheet.  Then simply copy, paste, and combine. One more copy paste job back into your spreadsheet and you have all your new combined keyphrases.</p>
+		<div class="centerColumn">	
+				<h2>Pre-Descriptor Phrases</h2>
+				<textarea id="prePhrases" cols="50" rows="20" placeholder="Enter pre-descriptor keyphrases (one per line)"></textarea>
+			</div>	
+	<div class="centerColumn">	
+		<h2>Core Keyword Phrases</h2>
+		<textarea id="corePhrases" cols="50" rows="20" placeholder="Enter core keyphrases (one per line)"></textarea>
+		<button type="button" onclick="calcPhrases()" id="resultsButton">Combine Phrases</button>
+	</div>
+
+	<div class="rightColumn">
+		<h2>Descriptor Phrases</h2>
+		<textarea id="descriptorPhrases" cols="50" rows="20" placeholder="Enter descriptors (one per line)"></textarea>
+	</div>
+	</br>
+	<div class="leftColumn">
+	<h2 id="combinedH2">Combined Keyword Phrases</h2>
+		<textarea id="resultPhrases" cols="50" rows="20" placeholder="New combined keyphrases will appear here"></textarea>
+	</div>
+</body>
+</html>

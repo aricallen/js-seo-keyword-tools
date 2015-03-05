@@ -1,0 +1,97 @@
+<html>
+<head>
+	
+<!-- JavaScript Section -->
+<script type="text/javascript">
+
+function findUniques()
+{
+	// for(phrases separated by \n ...)
+	// separate into an array of substrings based on "\n"
+	var duplicates = [];
+	var column1 = document.getElementById("column1").value.replace(/\r\n/g, "\n").split("\n");
+	var column2 = document.getElementById("column2").value.replace(/\r\n/g, "\n").split("\n");
+	// do some for loops to find the dups and populate duplicates array 
+	for(i=0; i<column1.length; i++) {
+		for(j=0; j<column2.length; j++){
+			if(column1[i]==column2[j]) duplicates.push(column1[i]);
+		}
+	}
+	var numOfItems = column1.length
+	// loop thru to remove all items that are in both duplicates and column1
+	for(i=0; i<numOfItems; i++){
+		for(j=0; j<duplicates.length; j++){
+			//go thru duplicates - find them in column1 - remove them
+			var index = column1.indexOf(duplicates[j]);
+			if(index != -1) column1.splice(index, 1);
+		}
+	}
+	writeResult(column1);
+}
+
+function writeResult(uniques)
+{
+	var resultTextArea = document.getElementById("uniques");
+	resultTextArea.value = uniques.join("\n");
+}
+
+</script>
+
+<!-- CSS Section -->
+
+<style type="text/css">
+
+.leftColumn
+{
+	float:left;
+	margin:20px;
+	width:400px;
+	clear:left;
+}
+
+.rightColumn
+{
+	float:left;
+	margin:20px;
+	width:400px;
+	clear:right;
+}
+
+#resultsButton
+{
+	clear:both;
+	float:left;
+	margin-top:10px;
+}
+
+#combinedH2
+{
+	clear:left;
+	float:left;
+}
+
+</style>
+</head>
+
+<!-- HTML5 Section -->
+
+<body>
+	<div id="info">
+		<p>Find all the entries exist only in column 1</p>
+	
+	<div class="leftColumn">	
+		<h2>List of items to Check</h2>
+		<textarea id="column1" cols="50" rows="20" placeholder="Enter column 1 Data"></textarea>
+		<button type="button" onclick="findUniques()" id="resultsButton">Find Uniques</button>
+	</div>
+	<div class="rightColumn">	
+			<h2>List of items to Check Against</h2>
+			<textarea id="column2" cols="50" rows="20" placeholder="Enter column 2 data"></textarea>
+		</div>
+	</br>
+	<div class="leftColumn">
+	<h2 id="combinedH2">Here are the items that exist only in column 1!</h2>
+		<textarea id="uniques" cols="50" rows="20" placeholder="List of items only found in column 1 will appear here"></textarea>
+	</div>
+</body>
+</html>

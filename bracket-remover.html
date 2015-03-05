@@ -1,0 +1,106 @@
+<html>
+<head>
+	
+<!-- JavaScript Section -->
+<script type="text/javascript">
+
+function calcPhrases()
+{
+	// for(phrases separated by \n ...)
+	// separate into an array of substrings based on "\n"
+	var k = 0;
+	var newPhrases = [];
+	var core = document.getElementById("corePhrases").value.replace(/\r\n/g, "\n").split("\n");
+	//var descriptors = document.getElementById("descriptorPhrases").value.replace(/\r\n/g, "\n").split("\n");
+	// do some for loops to combine them all 
+	for(i=0; i<core.length; i++) {
+			newPhrases[k] = core[i].replace("[", "").replace("]", "");
+			k++;
+	}
+	writeResult(newPhrases);
+}
+
+function writeResult(phraseArray)
+{
+	var resultTextArea = document.getElementById("resultPhrases");
+	resultTextArea.value = phraseArray.join("\n");
+}
+
+</script>
+
+<!-- CSS Section -->
+
+<style type="text/css">
+
+.leftColumn
+{
+	float:left;
+	margin:20px;
+	width:400px;
+	clear:left;
+}
+
+.rightColumn
+{
+	float:left;
+	margin:20px;
+	width:400px;
+	clear:right;
+}
+
+.resultsSection
+{
+	clear:both;
+	margin:20px;
+	width:840px;
+}
+
+#corePhrases
+{
+	width:400px;
+}
+
+#descriptorPhrases
+{
+	width:400px;
+}
+
+#resultsButton
+{
+	clear:both;
+	float:left;
+	margin-top:10px;
+}
+
+#combinedH2
+{
+	clear:both;
+	float:left;
+}
+
+#resultPhrases
+{
+	width:400px;
+}
+
+</style>
+</head>
+
+<!-- HTML5 Section -->
+
+<body>
+	<div id="info">
+		<p>Hate how Google Keywords tool puts brackets on all of your downloaded search terms when you use exact match? Me too. Hence this stupid tool.</p>
+	
+	<div class="leftColumn">	
+		<h2>List of words with [ ] around them</h2>
+		<textarea id="corePhrases" cols="50" rows="20" placeholder="Enter core keyphrases (one per line)"></textarea>
+		<button type="button" onclick="calcPhrases()" id="resultsButton">Remove Brackets</button>
+	</div>
+	</br>
+	<div class="leftColumn">
+	<h2 id="combinedH2">No More Brackets! Yay!</h2>
+		<textarea id="resultPhrases" cols="50" rows="20" placeholder="New combined keyphrases will appear here"></textarea>
+	</div>
+</body>
+</html>

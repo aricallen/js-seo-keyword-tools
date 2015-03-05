@@ -1,0 +1,105 @@
+<html>
+<head>
+	
+<!-- JavaScript Section -->
+<script type="text/javascript">
+
+function calcPhrases()
+{
+	// for(phrases separated by \n ...)
+	// separate into an array of substrings based on "\n"
+	var newPhrases = [];
+	var core = document.getElementById("corePhrases").value.replace(/\r\n/g, "\n").split("\n");
+	//var descriptors = document.getElementById("descriptorPhrases").value.replace(/\r\n/g, "\n").split("\n");
+	// do some for loops to combine them all 
+	for(i=0; i<core.length; i++) {
+			newPhrases.push(core[i]+"s");
+			newPhrases.push(core[i]+"es");
+	}
+	writeResult(newPhrases);
+}
+
+function writeResult(phraseArray)
+{
+	var resultTextArea = document.getElementById("resultPhrases");
+	resultTextArea.value = phraseArray.join("\n");
+}
+
+</script>
+
+<!-- CSS Section -->
+
+<style type="text/css">
+
+.leftColumn
+{
+	float:left;
+	margin:20px;
+	width:400px;
+	clear:left;
+}
+
+.rightColumn
+{
+	float:left;
+	margin:20px;
+	width:400px;
+	clear:right;
+}
+
+.resultsSection
+{
+	clear:both;
+	margin:20px;
+	width:840px;
+}
+
+#corePhrases
+{
+	width:400px;
+}
+
+#descriptorPhrases
+{
+	width:400px;
+}
+
+#resultsButton
+{
+	clear:both;
+	float:left;
+	margin-top:10px;
+}
+
+#combinedH2
+{
+	clear:both;
+	float:left;
+}
+
+#resultPhrases
+{
+	width:400px;
+}
+
+</style>
+</head>
+
+<!-- HTML5 Section -->
+
+<body>
+	<div id="info">
+		<p>This is a simple tool to add "s" and "es" to any size list of words.  I know it's primitive and probably wont work for most words, but you may find a few you forgot to include in your keyword list.</p>
+	
+	<div class="leftColumn">	
+		<h2>List of words that may or may not be plural</h2>
+		<textarea id="corePhrases" cols="50" rows="20" placeholder="Words go here"></textarea>
+		<button type="button" onclick="calcPhrases()" id="resultsButton">Pluralize</button>
+	</div>
+	</br>
+	<div class="leftColumn">
+	<h2 id="combinedH2">Pluralized!</h2>
+		<textarea id="resultPhrases" cols="50" rows="20" placeholder="Words with 's' and 'es' will be added and appear here"></textarea>
+	</div>
+</body>
+</html>

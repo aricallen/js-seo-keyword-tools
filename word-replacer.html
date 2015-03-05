@@ -1,0 +1,97 @@
+<html>
+<head>
+	
+<!-- JavaScript Section -->
+<script type="text/javascript">
+
+function replaceCity()
+{
+	// for(phrases separated by \n ...)
+	// separate into an array of substrings based on "\n"
+	var phraseWithCity = document.getElementById("phraseWithCity").value.replace(/\r\n/g, "\n").split("\n");
+	var cities = document.getElementById("cities").value.replace(/\r\n/g, "\n").split("\n");
+	var newPhrases = [];
+	// do some for loops to combine them all 
+	var tempStr = "";
+	var length = cities.length;
+	for(i=0;i<length;i++){
+		//var tempCity = cities[i];
+		tempStr = phraseWithCity[0].replace("[city]", cities[i]);
+		console.log(tempStr);
+		newPhrases.push(tempStr);
+	}
+	writeResult(newPhrases);
+}
+
+function writeResult(phraseArray)
+{
+	var resultTextArea = document.getElementById("resultPhrases");
+	resultTextArea.value = phraseArray.join("\n");
+}
+
+</script>
+
+<!-- CSS Section -->
+
+<style type="text/css">
+
+.leftColumn
+{
+	float:left;
+	margin:20px;
+	width:400px;
+	clear:left;
+}
+
+.rightColumn
+{
+	float:left;
+	margin:20px;
+	width:400px;
+	clear:right;
+}
+
+#resultsButton
+{
+	clear:both;
+	float:left;
+	margin-top:10px;
+}
+
+#combinedH2
+{
+	clear:both;
+	float:left;
+}
+
+#resultPhrases
+{
+	width:400px;
+}
+
+</style>
+</head>
+
+<!-- HTML5 Section -->
+
+<body>
+	<div id="info">
+		<p>Replaces [city] in a phrase with a list of cities.</p>
+	
+	<div class="leftColumn">	
+		<h2>Phrase with [city]</h2>
+		<textarea id="phraseWithCity" cols="50" rows="20" placeholder="Phrase with [city] to be replaced"></textarea>
+	</div>
+	<div class="rightColumn">	
+		<h2>List of Cities</h2>
+		<textarea id="cities" cols="50" rows="20" placeholder="List of cities (one per line)"></textarea>
+	</div>
+		<button type="button" onclick="replaceCity()" id="resultsButton">Replace [city]</button>
+	</div>
+	</br>
+	<div class="leftColumn">
+	<h2 id="combinedH2">[city] Replaced!</h2>
+		<textarea id="resultPhrases" cols="50" rows="20" placeholder="City specific phrases will appear here"></textarea>
+	</div>
+</body>
+</html>

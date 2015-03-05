@@ -1,0 +1,122 @@
+<html>
+<head>
+	
+<!-- JavaScript Section -->
+<script type="text/javascript">
+
+function addURLTags()
+{
+	// for(phrases separated by \n ...)
+	// separate into an array of substrings based on "\n"
+	var urlArray = document.getElementById("urls").value.replace(/\r\n/g, "\n").split("\n");
+	var urlBeg = "<url>\n";
+	var urlEnd = "</url>\n";
+	var d = new Date();
+	var year = d.getFullYear();
+	var month = d.getMonth() + 1;
+	var day = d.getDate();
+	var curDate = year + "-" + month + "-" + day;
+	// do some for loops to combine them all 
+	for(i=0; i<urlArray.length; i++) {
+		// add tags
+		/*
+		<url>
+			<loc>http://www.example.com/</loc>
+			(optional)
+				<lastmod>2005-01-01</lastmod> (YYYY-MM-DD)
+		   		<changefreq>monthly</changefreq>
+		    	<priority>0.8</priority>
+	    </url>
+		*/
+		var url = "\t<loc>" + urlArray[i] + "</loc>";
+		if(i === 0) {
+			// home page
+			var mod = "\n\t<lastmod>" + curDate + "</lastmod>";
+			var freq = "\n\t<changefreq>daily</changefreq>";
+			var priority = "\n\t<priority>1.0</priority>\n";
+		} else {
+			var mod = "\n\t<lastmod>" + curDate + "</lastmod>";
+			var freq = "\n\t<changefreq>weekly</changefreq>";
+			var priority = "\n\t<priority>0.6</priority>\n";
+		}
+		
+		if(urlArray[i] != "") {
+			urlArray[i] = urlBeg + url;
+			urlArray[i] += mod + freq + priority;
+			urlArray[i] += urlEnd;
+		} 
+	}
+
+	writeResult(urlArray);
+}
+
+function writeResult(urlArray)
+{
+	var heading = '<?xml version="1.0" encoding="UTF-8"?>';
+	heading += '\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n\n';
+	var footer = '\n</urlset>';
+	out = heading;
+	out += urlArray.join("\n");
+	out += footer;
+	var resultTextArea = document.getElementById("withTags");
+	resultTextArea.value = out;
+}
+
+</script>
+
+<!-- CSS Section -->
+
+<style type="text/css">
+
+.leftColumn
+{
+	float:left;
+	margin-left:20px;
+	width:400px;
+	clear:left;
+}
+
+#descriptorPhrases
+{
+	width:400px;
+}
+
+#resultsButton
+{
+	clear:both;
+	float:left;
+	margin-top:10px;
+}
+
+#combinedH2
+{
+	clear:both;
+	float:left;
+}
+
+#resultPhrases
+{
+	width:400px;
+}
+
+</style>
+</head>
+
+<!-- HTML5 Section -->
+
+<body>
+	<div id="info">
+		<p>Have a list of URLS that need included into an XML sitemap? So do I... So I built this.</p>
+	</div>			
+	<div class="leftColumn">	
+		<h4>URLs to include: (Make sure home page is listed first)</h4>
+		<textarea id="urls" cols="50" rows="20" placeholder="Enter URLs - one per line"></textarea>
+		<button type="button" onclick="addURLTags()" id="resultsButton">Do Magic</button>
+	</div>
+	</br>
+	<div class="leftColumn">
+	<h2 id="combinedH2">Now you're ready!</h2>
+		<textarea id="withTags" cols="50" rows="20" placeholder="XML ready lines with tags added will appear here"></textarea>
+	</div>
+</body>
+</html>

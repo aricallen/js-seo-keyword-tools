@@ -1,0 +1,95 @@
+<html>
+<head>
+	
+<!-- JavaScript Section -->
+<script type="text/javascript">
+
+function addTags()
+{
+	// for(phrases separated by \n ...)
+	// separate into an array of substrings based on "\n"
+	var itemsArray = document.getElementById("needTags").value.replace(/\r\n/g, "\n").split("\n");
+	var frontTag = document.getElementById("frontTag").value;
+	var endTag = document.getElementById("endTag").value;
+	// do some for loops to combine them all 
+	for(i=0; i<itemsArray.length; i++) {
+		// add tags
+		if(itemsArray[i] != "") itemsArray[i] = frontTag+itemsArray[i]+endTag;		
+	}
+
+	writeResult(itemsArray);
+}
+
+function writeResult(phraseArray)
+{
+	var resultTextArea = document.getElementById("withTags");
+	resultTextArea.value = phraseArray.join("\n");
+}
+
+</script>
+
+<!-- CSS Section -->
+
+<style type="text/css">
+
+.leftColumn
+{
+	float:left;
+	margin-left:20px;
+	width:400px;
+	clear:left;
+}
+
+#descriptorPhrases
+{
+	width:400px;
+}
+
+#resultsButton
+{
+	clear:both;
+	float:left;
+	margin-top:10px;
+}
+
+#combinedH2
+{
+	clear:both;
+	float:left;
+}
+
+#resultPhrases
+{
+	width:400px;
+}
+
+</style>
+</head>
+
+<!-- HTML5 Section -->
+
+<body>
+	<div id="info">
+		<p>Have a list of items that need HTML tags to be added to them? So do I... So I built this.</p>
+		<div class="leftColumn">
+			<form>
+				Front Tag: </br>
+				<input type="text" id="frontTag" value="<h1>">
+					</br>
+					</br>
+				End Tag: </br>
+				<input type="text" id="endTag" value="</h1>">
+			</form>	
+		</div>	
+	<div class="leftColumn">	
+		<h4>Items that need tags:</h4>
+		<textarea id="needTags" cols="50" rows="20" placeholder="Enter items - one per line"></textarea>
+		<button type="button" onclick="addTags()" id="resultsButton">Add Tags</button>
+	</div>
+	</br>
+	<div class="leftColumn">
+	<h2 id="combinedH2">Now you have Tags!</h2>
+		<textarea id="withTags" cols="50" rows="20" placeholder="Phrases with tags added will appear here"></textarea>
+	</div>
+</body>
+</html>

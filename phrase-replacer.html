@@ -1,0 +1,101 @@
+<html>
+<head>
+	
+<!-- JavaScript Section -->
+<script type="text/javascript">
+
+function replaceTerm()
+{
+	// for(phrases separated by \n ...)
+	// separate into an array of substrings based on "\n"
+	var phraseWithTerm = document.getElementById("phraseWithTerm").value;
+	var replacementTerms = document.getElementById("replacementTerms").value.replace(/\r\n/g, "\n").split("\n");
+	var term = document.getElementById("term").value;
+	var resultPhrases = [];
+	var tempStr = "";
+	var length = replacementTerms.length;
+	for(i=0;i<length;i++){
+		var tempIndex = 1;
+		tempStr = phraseWithTerm;
+		while(tempIndex > 0){
+			tempStr = tempStr.replace(term, replacementTerms[i]);
+			tempIndex = tempStr.indexOf(term);
+		}
+		resultPhrases.push(tempStr);
+	}
+	writeResult(resultPhrases);
+}
+
+function writeResult(phraseArray)
+{
+	var resultTextArea = document.getElementById("resultPhrases");
+	resultTextArea.value = phraseArray.join("\n");
+}
+
+</script>
+
+<!-- CSS Section -->
+
+<style type="text/css">
+
+.leftColumn
+{
+	float:left;
+	margin:20px;
+	width:400px;
+	clear:left;
+}
+
+.rightColumn
+{
+	float:left;
+	margin:20px;
+	width:400px;
+	clear:right;
+}
+
+#resultsButton
+{
+	clear:both;
+	float:left;
+	margin-top:10px;
+}
+
+#combinedH2
+{
+	clear:both;
+	float:left;
+}
+
+#resultPhrases
+{
+	width:400px;
+}
+
+</style>
+</head>
+
+<!-- HTML5 Section -->
+
+<body>
+	<div id="info">
+		<p>Replaces a [term] in a phrase with a list of new terms.</p>
+	
+	<div class="leftColumn">	
+		<h2>Phrase with [term]</h2>
+		<textarea id="phraseWithTerm" cols="50" rows="20" placeholder="Phrase with [term] to be replaced"></textarea><br /><br />
+		Term to replace:<input type="text" id="term" value="[term]">
+	</div>
+	<div class="rightColumn">	
+		<h2>List of replacement terms</h2>
+		<textarea id="replacementTerms" cols="50" rows="20" placeholder="List of replacement terms (one per line)"></textarea>
+	</div>
+		<button type="button" onclick="replaceTerm()" id="resultsButton">Replace [term]</button>
+	</div>
+	</br>
+	<div class="leftColumn">
+	<h2 id="combinedH2">[term] Replaced!</h2>
+		<textarea id="resultPhrases" cols="50" rows="20" placeholder="Term specific phrases will appear here"></textarea>
+	</div>
+</body>
+</html>

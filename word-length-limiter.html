@@ -1,0 +1,97 @@
+<html>
+<head>
+	
+<!-- JavaScript Section -->
+<script type="text/javascript">
+
+function createResult()
+{
+	// for(phrases separated by \n ...)
+	// separate into an array of substrings based on "\n"
+	var itemsArray = document.getElementById("items").value.replace(/\r\n/g, "\n").split("\n");
+	var minChars = document.getElementById("minChars").value;
+	var maxChars = document.getElementById("maxChars").value;
+	var resultArray = [];
+	// do some for loops to combine them all 
+	for(i=0; i<itemsArray.length; i++) {
+		if(itemsArray[i].length >= minChars && itemsArray[i].length <= maxChars){
+			resultArray.push(itemsArray[i]);
+		}
+	}
+
+	writeResult(resultArray);
+}
+
+function writeResult(phraseArray)
+{
+	var resultTextArea = document.getElementById("result");
+	resultTextArea.value = phraseArray.join("\n");
+}
+
+</script>
+
+<!-- CSS Section -->
+
+<style type="text/css">
+
+.leftColumn
+{
+	float:left;
+	margin-left:20px;
+	width:400px;
+	clear:left;
+}
+
+#descriptorPhrases
+{
+	width:400px;
+}
+
+#resultsButton
+{
+	clear:both;
+	float:left;
+	margin-top:10px;
+}
+
+#combinedH2
+{
+	clear:both;
+	float:left;
+}
+
+#resultPhrases
+{
+	width:400px;
+}
+
+</style>
+</head>
+
+<!-- HTML5 Section -->
+
+<body>
+	<div id="info">
+		<p>Repeats a phrase a selected number of times.</p>
+		<div class="leftColumn">
+			<form>
+				Min Number of Characters: </br>
+				<input type="text" id="minChars" value="">
+					</br>
+				Max Number of Characters: <br />
+				<input type="text" id="maxChars" value="">
+					</br>
+			</form>	
+		</div>	
+	<div class="leftColumn">	
+		<h4>Items List</h4>
+		<textarea id="items" cols="50" rows="20" placeholder="Enter items - one per line"></textarea>
+		<button type="button" onclick="createResult()" id="resultsButton">Do Stuff</button>
+	</div>
+	</br>
+	<div class="leftColumn">
+	<h2 id="combinedH2">Result Words</h2>
+		<textarea id="result" cols="50" rows="20" placeholder="Results"></textarea>
+	</div>
+</body>
+</html>

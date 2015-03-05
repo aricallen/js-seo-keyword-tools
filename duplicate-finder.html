@@ -1,0 +1,100 @@
+<html>
+<head>
+	
+<!-- JavaScript Section -->
+<script type="text/javascript">
+
+function findDups()
+{
+	// for(phrases separated by \n ...)
+	// separate into an array of substrings based on "\n"
+	var duplicates = [];
+	var column1 = document.getElementById("column1").value.replace(/\r\n/g, "\n").split("\n");
+	var column2 = document.getElementById("column2").value.replace(/\r\n/g, "\n").split("\n");
+	// do some for loops to find the dups and populate duplicates array 
+	for(i=0; i<column1.length; i++) {
+		for(j=0; j<column2.length; j++){
+			if(column1[i]==column2[j]) duplicates.push(column1[i]);
+		}
+	}
+	writeResult(duplicates);
+}
+
+function writeResult(duplicates)
+{
+	//var resultString = "***"+duplicates.length+" duplicates found***";
+	var resultTextArea = document.getElementById("duplicates");
+	resultTextArea.value = duplicates.join("\n");
+	//var writeResultString = document.getElementById("dupsFound");
+	//writeResultString.innerHTML = resultString;
+}
+
+</script>
+
+<!-- CSS Section -->
+
+<style type="text/css">
+
+.leftColumn
+{
+	float:left;
+	margin:20px;
+	width:400px;
+	clear:left;
+}
+
+.rightColumn
+{
+	float:left;
+	margin:20px;
+	width:400px;
+	clear:right;
+}
+
+#resultsButton
+{
+	clear:both;
+	float:left;
+	margin-top:10px;
+}
+
+#combinedH2
+{
+	clear:left;
+	float:left;
+}
+
+#dupsFound
+{
+	clear:right;
+	float:left;
+}
+
+</style>
+</head>
+
+<!-- HTML5 Section -->
+
+<body>
+	<div id="info">
+		<p>Find all the entries from column 1 that are also in column 2</p>
+	
+	<div class="leftColumn">	
+		<h2>List of words to Check</h2>
+		<textarea id="column1" cols="50" rows="20" placeholder="Enter column 1 Data"></textarea>
+		<button type="button" onclick="findDups()" id="resultsButton">Find Duplicates</button>
+	</div>
+	<div class="rightColumn">	
+			<h2>List of words to Check</h2>
+			<textarea id="column2" cols="50" rows="20" placeholder="Enter column 2 data"></textarea>
+		</div>
+	</br>
+	<div class="leftColumn">
+	<h2 id="combinedH2">Here are your Duplicates!</h2>
+	<div id="dupsFound">
+		<p></p>
+	</div>
+		<textarea id="duplicates" cols="50" rows="20" placeholder="List of Duplicates will appear here"></textarea>
+	</div>
+</body>
+</html>

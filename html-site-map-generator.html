@@ -1,0 +1,138 @@
+<html>
+<head>
+	
+<!-- JavaScript Section -->
+<script type="text/javascript">
+
+function makeTree ()
+{
+	// for(phrases separated by \n ...)
+	// separate into an array of substrings based on "\n"
+	var x = 0;
+	var out = "";
+	var urls = document.getElementById("urls").value.replace(/\r\n/g, "\n").split("\n");
+	var categories = document.getElementById("categories").value.replace(/\r\n/g, "\n").split("\n");
+	var titles = document.getElementById("titles").value.replace(/\r\n/g, "\n").split("\n");
+	//  make HTML Sitemap Tree string
+	if(urls[0] != ""){	
+		for(i=0; i<urls.length; i++) {
+			if(categories[i-1] == categories[i]) {
+				// same category
+			} else {
+				// new category
+				out += "<h2>" + categories[i] + "</h2>\n";
+				// make new list
+				if(i > 1) {
+					out += "</ul>";
+				} else {
+					out += "<ul>";
+				}
+			}
+			// build link
+			out += '<li><a href="' +urls[i]+ '" >';
+			out += titles[i];
+			out += '</a></li>\n';
+		}
+	} else{
+		out = "insufficient data";
+	
+	} 	
+	writeResult(out);
+}
+
+function writeResult(out)
+{
+	document.getElementById("results").innerHTML = out;
+	// resultTextArea.value = out.join("\n");
+}
+
+</script>
+
+<!-- CSS Section -->
+
+<style type="text/css">
+
+.leftColumn
+{
+	float:left;
+	margin:20px;
+	width:400px;
+	clear:left;
+}
+
+.centerColumn
+{
+	float:left;
+	margin:20px;
+	width:400px;
+}
+
+.rightColumn
+{
+	float:left;
+	margin:20px;
+	width:400px;
+	clear:right;
+}
+
+.resultsSection
+{
+	clear:both;
+	margin:20px;
+	width:840px;
+}
+
+#corePhrases
+{
+	width:400px;
+}
+
+#descriptorPhrases
+{
+	width:400px;
+}
+
+#resultsButton
+{
+	clear:both;
+	float:left;
+	margin-top:10px;
+}
+
+#combinedH2
+{
+	clear:both;
+	float:left;
+}
+
+#resultPhrases
+{
+	width:400px;
+}
+
+</style>
+</head>
+
+<!-- HTML5 Section -->
+
+<body>
+	<div id="info">
+		<div class="centerColumn">	
+			<h2>URLs</h2>
+			<textarea id="urls" cols="50" rows="20" placeholder="Enter URLs (one per line)"></textarea>
+		</div>	
+	<div class="centerColumn">	
+		<h2>Category</h2>
+		<textarea id="categories" cols="50" rows="20" placeholder="Enter Categories (one per line)"></textarea>
+		<button type="button" onclick="makeTree()" id="resultsButton">Combine Phrases</button>
+	</div>
+
+	<div class="rightColumn">
+		<h2>Title</h2>
+		<textarea id="titles" cols="50" rows="20" placeholder="Enter Titles (one per line)"></textarea>
+	</div>
+	<br/>
+	<br/>
+	<p style="clear:both;"><div id="results"></div></p>
+</body>
+</html>

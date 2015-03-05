@@ -1,0 +1,89 @@
+<html>
+<head>
+	
+<!-- JavaScript Section -->
+<script type="text/javascript">
+
+function grab()
+{
+	// for(phrases separated by \n ...)
+	// separate into an array of substrings based on "\n"
+	var tag = document.getElementById("tag").value;
+	var url = document.getElementById("url").value;
+	// do some for loops to combine them all 
+	
+
+	writeResult(itemsArray);
+}
+
+function writeResult(phraseArray)
+{
+	var resultTextArea = document.getElementById("itemsWithTags");
+	resultTextArea.value = phraseArray.join("\n");
+}
+
+</script>
+
+<!-- CSS Section -->
+
+<style type="text/css">
+
+.leftColumn
+{
+	float:left;
+	margin-left:20px;
+	width:400px;
+	clear:left;
+}
+
+#descriptorPhrases
+{
+	width:400px;
+}
+
+#resultsButton
+{
+	clear:both;
+	float:left;
+	margin-top:10px;
+}
+
+#combinedH2
+{
+	clear:both;
+	float:left;
+}
+
+#resultPhrases
+{
+	width:400px;
+}
+
+</style>
+</head>
+
+<!-- HTML5 Section -->
+
+<body>
+	<div id="info">
+		<p>Scrape a website for all items contained within a particular html tag</p>
+		<div class="leftColumn">
+			<form>
+				URL: </br>
+				<input type="text" id="url" placeholder="http://www.site-to-grab.com/page" size="55">
+					</br>
+					</br>
+				Tag: </br>
+				<input type="text" id="tag" placeholder="</h1>" size="55">
+			</form>	
+		</div>	
+	<div class="leftColumn">	
+		<button type="button" onclick="grab()" id="resultsButton">Grab Items</button>
+	</div>
+	</br>
+	<div class="leftColumn">
+	<h2 id="combinedH2">Items Found</h2>
+		<textarea id="itemsWithTags" cols="50" rows="20" placeholder="Items on page with specified tag"></textarea>
+	</div>
+</body>
+</html>

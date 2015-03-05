@@ -1,0 +1,101 @@
+<html>
+<head>
+	
+<!-- JavaScript Section -->
+<script type="text/javascript">
+
+function calcPhrases()
+{
+	// for(phrases separated by \n ...)
+	// separate into an array of substrings based on "\n"
+	var anchor = "^";
+	var endAnchor = "$";
+	var phrases = document.getElementById("phrases").value.replace(/\r\n/g, "\n").split("\n");
+	var newPhrases = [];
+	for(i=0;i<phrases.length;i++){
+		var tempStr = anchor +phrases[i]+endAnchor;
+		newPhrases.push(tempStr);
+	}
+	writeResult(newPhrases);
+}
+
+function writeResult(phraseArray)
+{
+	var resultTextArea = document.getElementById("resultPhrases");
+	resultTextArea.value = phraseArray.join("|");
+}
+
+</script>
+
+<!-- CSS Section -->
+
+<style type="text/css">
+
+.leftColumn
+{
+	float:left;
+	margin:10px;
+	width:300px;
+}
+
+.rightColumn
+{
+	float:left;
+	margin:10px;
+	width:300px;
+	clear:right;
+}
+
+.resultsSection
+{
+	clear:both;
+	margin:20px;
+	width:840px;
+}
+
+#corePhrases
+{
+	width:400px;
+}
+
+#descriptorPhrases
+{
+	width:400px;
+}
+
+#resultsButton
+{
+	clear:both;
+	float:left;
+	margin-top:10px;
+}
+
+#combinedH2
+{
+	float:left;
+}
+
+#resultPhrases
+{
+	width:250px;
+}
+
+</style>
+</head>
+
+<!-- HTML5 Section -->
+
+<body>
+	<div id="info">
+		<p>This is a simple tool to format a list of keywords into one regular expression string.</p>
+	<div class="leftColumn">	
+		<h3>Keywords, one per line</h3>
+		<textarea id="phrases" cols="30" rows="15" placeholder="Words go here"></textarea>
+		<button type="button" onclick="calcPhrases()" id="resultsButton">Combine</button>
+	</div>
+	<div class="rightColumn">
+	<h3 id="rightColumn">Regular Expression String</h3>
+		<textarea id="resultPhrases" cols="30" rows="15" placeholder="Words combined into single string with logical OR"></textarea>
+	</div>
+</body>
+</html>
