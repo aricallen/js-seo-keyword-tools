@@ -22,6 +22,10 @@ function urlToTitle()
 	var workTitle = "";
 	for(i=0;i<urls.length;i++){
 		tempStr = urls[i];
+		// remove trailing slash
+		if ( tempStr[tempStr.length-1] === "/" ) {
+			tempStr = tempStr.substring(0, tempStr.length-1);
+		}
 		lastSlash = tempStr.lastIndexOf("/");
 		workURL = tempStr.substring(lastSlash+1, tempStr.length);
 		title = workURL.replace(/[\W\_\-]/gi, " ");
